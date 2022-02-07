@@ -42,10 +42,10 @@ export async function signIn(req, res) {
 
       await db.collection('sessions').insertOne({ token, userId: user._id })
 
-      return res.send({token, user}).sendStatus(200)
+      return res.send({token, user})
+    } else {
+      return res.sendStatus(404)
     }
-
-    return res.sendStatus(404)
   } catch {
     res.sendStatus(500)
   }
