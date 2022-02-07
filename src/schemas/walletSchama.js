@@ -1,4 +1,4 @@
-import joi from 'joi';
+import joi from 'joi'
 
 const walletSchema = joi.object({
     description: joi.string().min(5).max(20).required(),
@@ -6,4 +6,4 @@ const walletSchema = joi.object({
     operation: joi.string().required()
 });
 
-export default walletSchema;
+export default walletSchema

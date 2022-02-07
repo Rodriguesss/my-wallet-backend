@@ -15,17 +15,22 @@ export async function getWallet(req, res) {
     }
 }
 
-export async function postWallet(req, res) {
-    const wallet = req.body
+export async function postRegistry(req, res) {
+    const registry = req.body
 
-    wallet.description = stripHtml(wallet.description).result.trim()
-    wallet.operation = stripHtml(wallet.operation).result.trim()
-    wallet.price = stripHtml(wallet.price).result.trim()
+    registry.description = stripHtml(registry.description).result.trim()
+    registry.operation = stripHtml(registry.operation).result.trim()
+    registry.price = stripHtml(registry.price).result.trim()
 
     try {
+        const month = new Date().getMonth()
+        const day = new Date().getDate()
+
         const { _id } = res.locals.user
 
-        await db.collection('wallets').insertOne({ ...wallet, date: Date.now(), user_id: _id })
+        registry.price = parseInt(registry.price).toLocaleString('pt-br', {minimumFractionDigits: 2})
+
+        await db.collection('wallets').insertOne({ ...registry, date: `${day}/${month < 10 ? `0` : ``}${month + 1}`, user_id: _id })
 
         res.sendStatus(`201`)
     } catch {

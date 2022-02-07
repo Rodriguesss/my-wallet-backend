@@ -3,11 +3,9 @@ import initMongo from "../database/database.js";
 export const validationSchema = (schema) => {
 	return async (req, res, next) => {
 		try {
-			console.log(req.body)
 			const validation = schema.validate(req.body);
 
 			if (validation.error) {
-				console.log(validation)
 				return res.sendStatus(422);
 			}
 
