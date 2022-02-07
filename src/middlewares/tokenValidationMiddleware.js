@@ -9,7 +9,8 @@ export default async function checkToken(req, res, next) {
 		return res.sendStatus(401)
 	}
 
-	const session = await db.collection("sessions").findOne({ token });
+	const session = await db.collection("sessions").findOne({ token })
+	
 	if(!session) {
 		return res.sendStatus(401)
 	}
@@ -19,7 +20,7 @@ export default async function checkToken(req, res, next) {
 	})
 	
 	if (!user) {
-		return res.sendStatus(401)
+		return res.sendStatus(404)
 	}
 
 	delete user.password
